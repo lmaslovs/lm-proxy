@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  reverse-proxy:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+    external: true
